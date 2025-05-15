@@ -56,4 +56,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Added compose, viewmodel, retrofit for api calls
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.retrofit2)
+    implementation(libs.coil.compose)
+    implementation(libs.materialIconsExtended)
+    implementation(libs.retrofit2.converter.gson)
 }
