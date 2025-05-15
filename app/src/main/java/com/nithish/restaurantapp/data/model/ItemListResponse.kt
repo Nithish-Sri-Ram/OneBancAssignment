@@ -1,12 +1,14 @@
 package com.nithish.restaurantapp.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ItemListResponse(
-    val responseCode: Int,
-    val outcomeCode: Int,
-    val responseMessage: String,
-    val page: Int,
-    val count: Int,
-    val totalPages: Int,
-    val totalItems: Int,
-    val cuisines: List<Cuisine>
+    @SerializedName("response_code") val responseCode: Int,
+    @SerializedName("outcome_code") val outcomeCode: Int,
+    @SerializedName("response_message") val responseMessage: String,
+    @SerializedName("page") val page: Int,
+    @SerializedName("count") val count: Int,
+    @SerializedName("total_pages") val totalPages: Int,
+    @SerializedName("total_items") val totalItems: Int,
+    @SerializedName("cuisines") val cuisines: List<Cuisine>
 )

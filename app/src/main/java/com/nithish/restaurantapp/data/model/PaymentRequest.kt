@@ -1,7 +1,9 @@
 package com.nithish.restaurantapp.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class PaymentRequest(
-    val totalAmount: String,
-    val totalItems: Int,
-    val data: List<PaymentItem>
+    @SerializedName("total_amount") val totalAmount: String,
+    @SerializedName("total_items") val totalItems: Int,
+    @SerializedName("data") val data: List<PaymentItem>
 )

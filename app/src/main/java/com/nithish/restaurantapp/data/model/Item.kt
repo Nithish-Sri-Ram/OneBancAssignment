@@ -1,9 +1,11 @@
 package com.nithish.restaurantapp.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Item(
-    val id: String,
-    val name: String,
-    val imageUrl: String,
-    val price: String,
-    val rating: String
+    @SerializedName("id") val id: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("image_url") val imageUrl: String,
+    @SerializedName("price") val price: String,
+    @SerializedName("rating") val rating: String
 )
