@@ -14,7 +14,7 @@ interface ApiService {
         @Header("X-Partner-API-Key") apiKey: String = "uonebancservceemultrS3cg8RaL30",
         @Header("X-Forward-Proxy-Action") action: String = "get_item_list",
         @Header("Content-Type") contentType: String = "application/json",
-        @Body request: Map<String, Any>
+        @Body request: Map<String, Int>
     ): ItemListResponse
 
     @POST("/emulator/interview/get_item_by_id")
@@ -22,7 +22,7 @@ interface ApiService {
         @Header("X-Partner-API-Key") apiKey: String = "uonebancservceemultrS3cg8RaL30",
         @Header("X-Forward-Proxy-Action") action: String = "get_item_by_id",
         @Header("Content-Type") contentType: String = "application/json",
-        @Body request: Map<String, Any>
+        @Body request: Map<String, Int>
     ): ItemResponse
 
     @POST("/emulator/interview/make_payment")
