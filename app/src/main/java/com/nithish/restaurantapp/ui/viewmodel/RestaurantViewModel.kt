@@ -67,14 +67,35 @@ class RestaurantViewModel : ViewModel() {
             itemPrice = item.price.toDoubleOrNull() ?: 0.0,
             itemImageUrl = item.imageUrl
         )
-        _cart.value.addItem(cartItem)
-        _cart.value = Cart(_cart.value.items, _cart.value.cgst, _cart.value.sgst)
+
+        val updatedItems = _cart.value.items.toMutableList()
+
+        val existingItemIndex = updatedItems.indexOfFirst { it.itemId == item.id }
+        if (existingItemIndex != -1) {
+            val updatedItem = updatedItems[existingItemIndex].copy(quantity = updatedItems[existingItemIndex].quantity + 1)
+            updatedItems[existingItemIndex] = updatedItem
+        } else {
+            updatedItems.add(cartItem)
+        }
+
+        _cart.value = Cart(updatedItems, _cart.value.cgst, _cart.value.sgst)
     }
 
     fun removeFromCart(itemId: String) {
-        _cart.value.removeItem(itemId)
-        // state update - had to force update
-        _cart.value = Cart(_cart.value.items, _cart.value.cgst, _cart.value.sgst)
+        val updatedItems = _cart.value.items.toMutableList()
+
+        val existingItemIndex = updatedItems.indexOfFirst { it.itemId == itemId }
+        if (existingItemIndex != -1) {
+            val item = updatedItems[existingItemIndex]
+            if (item.quantity > 1) {
+                val updatedItem = item.copy(quantity = item.quantity - 1)
+                updatedItems[existingItemIndex] = updatedItem
+            } else {
+                updatedItems.removeAt(existingItemIndex)
+            }
+        }
+
+        _cart.value = Cart(updatedItems, _cart.value.cgst, _cart.value.sgst)
     }
 
     fun toggleLanguage() {

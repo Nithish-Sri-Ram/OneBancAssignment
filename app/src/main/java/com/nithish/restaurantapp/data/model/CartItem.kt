@@ -7,5 +7,5 @@ data class CartItem(
     val itemName: String,
     val itemPrice: Double,
     val itemImageUrl: String,
-    var quantity: Int = 1
+    val quantity: Int = 1
 )

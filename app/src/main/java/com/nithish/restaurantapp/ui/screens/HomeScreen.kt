@@ -1,6 +1,7 @@
 package com.nithish.restaurantapp.ui.screens
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -77,7 +78,7 @@ fun HomeScreen(
                 )
             } else if (error != null) {
                 Text(
-                    text = error ?: "Unknown error",
+                    text = "Connect to Internet",
                     modifier = Modifier
                         .align(Alignment.Center)
                         .padding(16.dp),
@@ -96,7 +97,8 @@ fun HomeScreen(
                         )
 
                         LazyRow(
-                            contentPadding = PaddingValues(horizontal = 8.dp)
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(cuisines) { cuisine ->
                                 CuisineCard(
@@ -116,10 +118,8 @@ fun HomeScreen(
                         )
                     }
 
-                    // top 3 dishes from all cuisines
                     val topDishes = cuisines.flatMap { it.items }
                         .sortedByDescending { it.rating.toDoubleOrNull() ?: 0.0 }
-                        .take(3)
 
                     items(topDishes) { dish ->
                         val dishCuisine = cuisines.first { cuisine ->
@@ -129,6 +129,7 @@ fun HomeScreen(
                         DishItem(
                             cuisine = dishCuisine,
                             item = dish,
+                            viewModel=viewModel,
                             onAddToCart = { cuisine, item ->
                                 viewModel.addToCart(cuisine, item)
                             }

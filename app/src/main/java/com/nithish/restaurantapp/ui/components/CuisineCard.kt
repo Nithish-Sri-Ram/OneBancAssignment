@@ -26,7 +26,8 @@ import com.nithish.restaurantapp.data.model.Cuisine
 @Composable
 fun CuisineCard(
     cuisine: Cuisine,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = Modifier

@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDownward
-import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,10 +21,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,14 +34,18 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.nithish.restaurantapp.data.model.Cuisine
 import com.nithish.restaurantapp.data.model.Item
+import com.nithish.restaurantapp.ui.viewmodel.RestaurantViewModel
 
 @Composable
 fun DishItem(
     cuisine: Cuisine,
     item: Item,
+    viewModel: RestaurantViewModel,
     onAddToCart: (Cuisine, Item) -> Unit
 ) {
-    var quantity by remember { mutableStateOf(0) }
+    val cart by viewModel.cart.collectAsState()
+
+    val quantity = cart.items.find { it.itemId == item.id }?.quantity ?: 0
 
     Card(
         modifier = Modifier
@@ -107,10 +109,10 @@ fun DishItem(
                 if (quantity > 0) {
                     IconButton(
                         onClick = {
-                            quantity--
+                            viewModel.removeFromCart(item.id)
                         }
                     ) {
-                        Icon(Icons.Filled.ArrowDownward, contentDescription = "Remove")
+                        Icon(Icons.Filled.Clear, contentDescription = "Remove")
                     }
 
                     Text(
@@ -121,11 +123,10 @@ fun DishItem(
 
                 IconButton(
                     onClick = {
-                        quantity++
                         onAddToCart(cuisine, item)
                     }
                 ) {
-                    Icon(Icons.Default.ArrowUpward, contentDescription = "Add")
+                    Icon(Icons.Default.Add, contentDescription = "Add")
                 }
             }
         }

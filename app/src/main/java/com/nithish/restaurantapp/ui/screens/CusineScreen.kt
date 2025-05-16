@@ -91,6 +91,7 @@ fun CuisineScreen(
                         DishItem(
                             cuisine = selectedCuisine!!,
                             item = item,
+                            viewModel=viewModel,
                             onAddToCart = { cuisine, dish ->
                                 viewModel.addToCart(cuisine, dish)
                             }
